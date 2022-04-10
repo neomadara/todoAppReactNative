@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
 interface Props {
@@ -6,9 +6,27 @@ interface Props {
 }
 
 const InputTodo: FC<Props> = () => {
+  const [text, setText] = useState('');
+
+  const changeHandler = (val: string) => {
+    setText(val);
+  };
+
+  const validationHandler = () => {
+    if (text.length < 3) {
+      console.log('texto menor que 3 caracteres');
+    }
+  };
+
   return (
     <View testID="input-component">
-      <TextInput style={styles.input} placeholder="new todo..." />
+      <TextInput
+        onChangeText={changeHandler}
+        style={styles.input}
+        placeholder="new todo..."
+        value={text}
+        onSubmitEditing={() => validationHandler()}
+      />
     </View>
   );
 };
